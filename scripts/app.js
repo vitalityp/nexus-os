@@ -1,6 +1,6 @@
 const workspace = document.getElementById("workspace");
 
-const app = {
+window.app = {
 
   tasks: [
     "Initialize Operator Workflow",
@@ -30,7 +30,7 @@ const app = {
       `;
     }
 
-    if (section === "tasks") {
+    else if (section === "tasks") {
 
       let html = `
         <h3 class="text-2xl font-bold mb-4">
@@ -50,7 +50,7 @@ const app = {
       workspace.innerHTML = html;
     }
 
-    if (section === "leads") {
+    else if (section === "leads") {
 
       let html = `
         <h3 class="text-2xl font-bold mb-4">
@@ -70,7 +70,7 @@ const app = {
       workspace.innerHTML = html;
     }
 
-    if (section === "vault") {
+    else if (section === "vault") {
 
       let html = `
         <h3 class="text-2xl font-bold mb-4">
@@ -90,7 +90,7 @@ const app = {
       workspace.innerHTML = html;
     }
 
-    if (section === "ai") {
+    else if (section === "ai") {
 
       workspace.innerHTML = `
         <h3 class="text-2xl font-bold mb-4">
@@ -121,6 +121,4 @@ const app = {
   }
 };
 
-window.app = app;
-
-app.showSection("overview");
+window.app.showSection("overview");
