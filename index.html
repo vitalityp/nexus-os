@@ -3,266 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>NEXUS OS | Operator Infrastructure</title>
+  <title>NEXUS OS | Fixed Navigation</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: linear-gradient(135deg, #0f172a, #020617);
-      color: #e2e8f0;
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      min-height: 100vh;
-      padding: 1rem;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      background: rgba(2, 6, 23, 0.6);
-      backdrop-filter: blur(4px);
-      border-radius: 2rem;
-      padding: 1.5rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .glass {
-      background: rgba(15, 25, 45, 0.65);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      border-radius: 1.5rem;
-    }
-
-    h1 {
-      font-size: 2rem;
-      color: #22d3ee;
-      letter-spacing: -0.02em;
-    }
-
-    .status {
-      color: #94a3b8;
-      border-left: 3px solid #22d3ee;
-      padding-left: 1rem;
-      font-size: 0.85rem;
-    }
-
-    button, .btn {
-      background: #0f3b3b;
-      border: none;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 2rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    button:hover, .btn:hover {
-      background: #1e5a5a;
-      transform: translateY(-1px);
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: 1px solid #22d3ee30;
-      width: 100%;
-      text-align: left;
-      margin-bottom: 0.5rem;
-    }
-    .nav-btn:hover {
-      background: #22d3ee20;
-      border-color: #22d3ee;
-    }
-
-    .card {
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 1rem;
-      padding: 1.25rem;
-    }
-
-    .task-item, .lead-item, .vault-item {
-      background: #1e293b;
-      margin: 0.5rem 0;
-      padding: 0.6rem 1rem;
-      border-radius: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    footer {
-      margin-top: 2rem;
-      font-size: 0.7rem;
-      text-align: center;
-      color: #475569;
-    }
-
-    @media (max-width: 768px) {
-      .container { padding: 1rem; }
-      h1 { font-size: 1.6rem; }
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: linear-gradient(135deg,#0f172a,#020617); color:#e2e8f0; font-family: system-ui; padding:1rem; }
+    .container { max-width:1280px; margin:0 auto; background:#02061780; backdrop-filter:blur(4px); border-radius:2rem; padding:1.5rem; }
+    .hidden { display: none !important; }
+    .glass { background:#0f192d80; backdrop-filter:blur(8px); border:1px solid #0ff3; border-radius:1.5rem; }
+    h1 { font-size:2rem; color:#22d3ee; }
+    .status { color:#94a3b8; border-left:3px solid #22d3ee; padding-left:1rem; font-size:0.85rem; }
+    button, .btn { background:#0f3b3b; border:none; color:white; padding:0.6rem 1.2rem; border-radius:2rem; cursor:pointer; transition:0.2s; }
+    button:hover { background:#1e5a5a; transform:translateY(-1px); }
+    .nav-btn { background:transparent; border:1px solid #22d3ee30; width:100%; text-align:left; margin-bottom:0.5rem; }
+    .nav-btn:hover { background:#22d3ee20; border-color:#22d3ee; }
+    .card { background:#1e293b80; border-radius:1rem; padding:1.25rem; }
+    .task-item, .lead-item, .vault-item { background:#1e293b; margin:0.5rem 0; padding:0.6rem 1rem; border-radius:0.8rem; display:flex; justify-content:space-between; align-items:center; }
+    footer { margin-top:2rem; font-size:0.7rem; text-align:center; color:#475569; }
+    @media (max-width:768px) { .container { padding:1rem; } h1 { font-size:1.6rem; } }
   </style>
 </head>
 <body>
-
 <div class="container">
-  <!-- Header -->
-  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-    <div>
-      <h1>⚡ NEXUS OS</h1>
-      <p style="color: #94a3b8; font-size: 0.85rem;">AI Operator Infrastructure — Zero → Operator</p>
-    </div>
-    <div class="status" id="systemStatus">🟢 SYSTEM INITIALIZED</div>
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+    <div><h1>⚡ NEXUS OS</h1><p style="color:#94a3b8;">AI Operator Infrastructure — Fixed</p></div>
+    <div class="status" id="systemStatus">🟢 READY</div>
   </div>
 
-  <!-- Sidebar + Workspace (flex row) -->
-  <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-    <!-- Sidebar Navigation -->
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; background: #0f172a80; padding: 0.8rem; border-radius: 1.5rem;">
+  <div style="display:flex; flex-direction:column; gap:1.5rem;">
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; background:#0f172a80; padding:0.8rem; border-radius:1.5rem;">
       <button class="nav-btn" id="navOverview">📊 Overview</button>
       <button class="nav-btn" id="navTasks">✅ Tasks</button>
       <button class="nav-btn" id="navLeads">🎯 Leads</button>
       <button class="nav-btn" id="navVault">🧠 Vault</button>
       <button class="nav-btn" id="navAI">⚡ AI Actions</button>
     </div>
-
-    <!-- Dynamic Workspace -->
-    <div id="workspace" class="card">
-      <p>Loading operator infrastructure...</p>
-    </div>
+    <div id="workspace" class="card"><p>Loading...</p></div>
   </div>
-
-  <footer>
-    Security-first • Modular • Reusable • Zero dependency • Full operator control
-  </footer>
+  <footer>Security-first • Modular • Zero dependency</footer>
 </div>
 
 <script>
-  (function() {
+  (function(){
     "use strict";
-
-    // ---------- SECURITY: Escape HTML ----------
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-      });
-    }
-
-    // ---------- STATE (data) ----------
+    function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g, function(m){ return m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'; }); }
+    
     let state = {
       activeSection: 'overview',
       tasks: ['Initialize operator workflow', 'Build lead system'],
       leads: ['First potential client'],
       vault: ['AI workflow concepts']
     };
-
-    // ---------- DOM elements ----------
-    const workspaceDiv = document.getElementById('workspace');
+    
+    const workspace = document.getElementById('workspace');
     const statusSpan = document.getElementById('systemStatus');
-
-    // ---------- Render functions (pure, reusable) ----------
-    function renderOverview() {
-      return `
-        <h3 style="font-size:1.4rem; margin-bottom:1rem;">🚀 Welcome to NEXUS OS</h3>
-        <p style="color:#cbd5e1; line-height:1.5;">Your modular AI operator infrastructure is active.<br>
-        ✅ Security-first design (XSS protected)<br>
-        ✅ Skill-building by design<br>
-        ✅ Reusable components<br>
-        ✅ Future-proof architecture<br>
-        ✅ Zero dependency on AI for control</p>
-        <div style="margin-top:1rem; padding:0.8rem; background:#0f172a; border-radius:1rem;">
-          <strong>🔧 Current Mode:</strong> Zero → Operator — building long-term leverage.
-        </div>
-      `;
-    }
-
-    function renderTasks() {
-      let html = `<h3 style="font-size:1.4rem; margin-bottom:0.8rem;">✅ Tasks (${state.tasks.length})</h3>`;
-      if (state.tasks.length === 0) {
-        html += `<p style="color:#94a3b8;">No tasks yet. Add one below.</p>`;
-      } else {
-        html += `<div id="tasksList">`;
-        state.tasks.forEach((task, idx) => {
-          html += `
-            <div class="task-item">
-              <span>${escapeHtml(task)}</span>
-              <button class="delete-task" data-idx="${idx}" style="background:#7f1a1a; padding:0.2rem 0.8rem; border-radius:1rem;">✖</button>
-            </div>
-          `;
-        });
-        html += `</div>`;
-      }
+    
+    function updateStatus(msg){ if(statusSpan) statusSpan.innerHTML = `🟢 ${msg}`; setTimeout(()=>{ if(statusSpan) statusSpan.innerHTML='🟢 SYSTEM ONLINE'; },1500); }
+    
+    function renderOverview(){ return `<h3 style="font-size:1.4rem;">🚀 Welcome to NEXUS OS</h3><p>Your operator infrastructure is active.<br>✅ Security-first<br>✅ Modular<br>✅ Zero dependency</p>`; }
+    function renderTasks(){
+      let html = `<h3 style="font-size:1.4rem;">✅ Tasks (${state.tasks.length})</h3>`;
+      if(state.tasks.length===0) html += `<p>No tasks yet.</p>`;
+      else { state.tasks.forEach((t,i)=>{ html += `<div class="task-item"><span>${escapeHtml(t)}</span><button class="delete-task" data-idx="${i}" style="background:#7f1a1a;">✖</button></div>`; }); }
       html += `<button id="addTaskBtn" style="margin-top:0.8rem;">+ Add Task</button>`;
       return html;
     }
-
-    function renderLeads() {
-      let html = `<h3 style="font-size:1.4rem; margin-bottom:0.8rem;">🎯 Leads (${state.leads.length})</h3>`;
-      if (state.leads.length === 0) {
-        html += `<p style="color:#94a3b8;">No leads yet. Add one below.</p>`;
-      } else {
-        html += `<div id="leadsList">`;
-        state.leads.forEach((lead, idx) => {
-          html += `
-            <div class="lead-item">
-              <span>${escapeHtml(lead)}</span>
-              <button class="delete-lead" data-idx="${idx}" style="background:#7f1a1a; padding:0.2rem 0.8rem;">✖</button>
-            </div>
-          `;
-        });
-        html += `</div>`;
-      }
+    function renderLeads(){
+      let html = `<h3 style="font-size:1.4rem;">🎯 Leads (${state.leads.length})</h3>`;
+      if(state.leads.length===0) html += `<p>No leads yet.</p>`;
+      else { state.leads.forEach((l,i)=>{ html += `<div class="lead-item"><span>${escapeHtml(l)}</span><button class="delete-lead" data-idx="${i}" style="background:#7f1a1a;">✖</button></div>`; }); }
       html += `<button id="addLeadBtn">+ Add Lead</button>`;
       return html;
     }
-
-    function renderVault() {
-      let html = `<h3 style="font-size:1.4rem; margin-bottom:0.8rem;">🧠 Vault (${state.vault.length})</h3>`;
-      if (state.vault.length === 0) {
-        html += `<p style="color:#94a3b8;">Vault empty. Add knowledge items.</p>`;
-      } else {
-        html += `<div id="vaultList">`;
-        state.vault.forEach((item, idx) => {
-          html += `
-            <div class="vault-item">
-              <span>${escapeHtml(item)}</span>
-              <button class="delete-vault" data-idx="${idx}" style="background:#7f1a1a;">✖</button>
-            </div>
-          `;
-        });
-        html += `</div>`;
-      }
+    function renderVault(){
+      let html = `<h3 style="font-size:1.4rem;">🧠 Vault (${state.vault.length})</h3>`;
+      if(state.vault.length===0) html += `<p>Vault empty.</p>`;
+      else { state.vault.forEach((v,i)=>{ html += `<div class="vault-item"><span>${escapeHtml(v)}</span><button class="delete-vault" data-idx="${i}" style="background:#7f1a1a;">✖</button></div>`; }); }
       html += `<button id="addVaultBtn">+ Add Vault Item</button>`;
       return html;
     }
-
-    function renderAiActions() {
-      return `
-        <h3 style="font-size:1.4rem; margin-bottom:1rem;">⚡ AI Actions</h3>
-        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:0.8rem;">
-          <div class="glass" style="padding:0.8rem; text-align:center;">📄 Generate Proposal</div>
-          <div class="glass" style="padding:0.8rem; text-align:center;">🤖 AI Reply</div>
-          <div class="glass" style="padding:0.8rem; text-align:center;">💰 Pricing Engine</div>
-          <div class="glass" style="padding:0.8rem; text-align:center;">🔁 Workflow Suggest</div>
-        </div>
-        <p style="margin-top:1rem; font-size:0.8rem; color:#94a3b8;">AI-assisted, human-controlled. No black box.</p>
-      `;
-    }
-
-    function render() {
-      if (!workspaceDiv) return;
+    function renderAiActions(){ return `<h3 style="font-size:1.4rem;">⚡ AI Actions</h3><div style="display:grid; gap:0.8rem; grid-template-columns:repeat(auto-fill,minmax(150px,1fr));"><div class="glass" style="padding:0.8rem;">📄 Generate Proposal</div><div class="glass" style="padding:0.8rem;">🤖 AI Reply</div><div class="glass" style="padding:0.8rem;">💰 Pricing Engine</div><div class="glass" style="padding:0.8rem;">🔁 Workflow Suggest</div></div>`; }
+    
+    function render(){
+      if(!workspace) return;
       let content = '';
-      switch (state.activeSection) {
+      switch(state.activeSection){
         case 'overview': content = renderOverview(); break;
         case 'tasks': content = renderTasks(); break;
         case 'leads': content = renderLeads(); break;
@@ -270,116 +94,74 @@
         case 'ai': content = renderAiActions(); break;
         default: content = renderOverview();
       }
-      workspaceDiv.innerHTML = content;
-      attachDynamicEvents();
+      workspace.innerHTML = content;
+      attachEvents();
     }
-
-    // Attach events for delete/add buttons (after each render)
-    function attachDynamicEvents() {
-      // Delete task
-      document.querySelectorAll('.delete-task').forEach(btn => {
-        btn.removeEventListener('click', deleteTaskHandler);
-        btn.addEventListener('click', deleteTaskHandler);
+    
+    function attachEvents(){
+      document.querySelectorAll('.delete-task').forEach(btn=>{
+        btn.removeEventListener('click', handleDeleteTask);
+        btn.addEventListener('click', handleDeleteTask);
       });
-      document.querySelectorAll('.delete-lead').forEach(btn => {
-        btn.removeEventListener('click', deleteLeadHandler);
-        btn.addEventListener('click', deleteLeadHandler);
+      document.querySelectorAll('.delete-lead').forEach(btn=>{
+        btn.removeEventListener('click', handleDeleteLead);
+        btn.addEventListener('click', handleDeleteLead);
       });
-      document.querySelectorAll('.delete-vault').forEach(btn => {
-        btn.removeEventListener('click', deleteVaultHandler);
-        btn.addEventListener('click', deleteVaultHandler);
+      document.querySelectorAll('.delete-vault').forEach(btn=>{
+        btn.removeEventListener('click', handleDeleteVault);
+        btn.addEventListener('click', handleDeleteVault);
       });
-      const addTaskBtn = document.getElementById('addTaskBtn');
-      if (addTaskBtn) {
-        addTaskBtn.removeEventListener('click', addTaskHandler);
-        addTaskBtn.addEventListener('click', addTaskHandler);
-      }
-      const addLeadBtn = document.getElementById('addLeadBtn');
-      if (addLeadBtn) {
-        addLeadBtn.removeEventListener('click', addLeadHandler);
-        addLeadBtn.addEventListener('click', addLeadHandler);
-      }
-      const addVaultBtn = document.getElementById('addVaultBtn');
-      if (addVaultBtn) {
-        addVaultBtn.removeEventListener('click', addVaultHandler);
-        addVaultBtn.addEventListener('click', addVaultHandler);
-      }
+      const addTask = document.getElementById('addTaskBtn');
+      if(addTask){ addTask.removeEventListener('click', addTaskHandler); addTask.addEventListener('click', addTaskHandler); }
+      const addLead = document.getElementById('addLeadBtn');
+      if(addLead){ addLead.removeEventListener('click', addLeadHandler); addLead.addEventListener('click', addLeadHandler); }
+      const addVault = document.getElementById('addVaultBtn');
+      if(addVault){ addVault.removeEventListener('click', addVaultHandler); addVault.addEventListener('click', addVaultHandler); }
     }
-
-    // Handlers with security and state update
-    function deleteTaskHandler(e) {
-      const idx = e.currentTarget.getAttribute('data-idx');
-      if (idx !== null) {
-        state.tasks.splice(parseInt(idx), 1);
-        render();
-        updateStatus('Task deleted');
-      }
-    }
-    function deleteLeadHandler(e) {
-      const idx = e.currentTarget.getAttribute('data-idx');
-      if (idx !== null) { state.leads.splice(parseInt(idx), 1); render(); updateStatus('Lead deleted'); }
-    }
-    function deleteVaultHandler(e) {
-      const idx = e.currentTarget.getAttribute('data-idx');
-      if (idx !== null) { state.vault.splice(parseInt(idx), 1); render(); updateStatus('Vault item deleted'); }
-    }
-    function addTaskHandler() {
-      let newTask = prompt('Enter new task:');
-      if (newTask && newTask.trim()) {
-        state.tasks.push(escapeHtml(newTask.trim()));
-        render();
-        updateStatus('Task added');
-      }
-    }
-    function addLeadHandler() {
-      let newLead = prompt('Enter new lead:');
-      if (newLead && newLead.trim()) {
-        state.leads.push(escapeHtml(newLead.trim()));
-        render();
-        updateStatus('Lead added');
-      }
-    }
-    function addVaultHandler() {
-      let newItem = prompt('Enter vault item:');
-      if (newItem && newItem.trim()) {
-        state.vault.push(escapeHtml(newItem.trim()));
-        render();
-        updateStatus('Vault item added');
-      }
-    }
-
-    function updateStatus(msg) {
-      if (statusSpan) statusSpan.innerHTML = `🟢 ${msg}`;
-      setTimeout(() => { if(statusSpan) statusSpan.innerHTML = '🟢 SYSTEM INITIALIZED'; }, 1500);
-    }
-
-    function setSection(section) {
+    
+    function handleDeleteTask(e){ let idx = e.currentTarget.getAttribute('data-idx'); if(idx!==null){ state.tasks.splice(parseInt(idx),1); render(); updateStatus('Task deleted'); } }
+    function handleDeleteLead(e){ let idx = e.currentTarget.getAttribute('data-idx'); if(idx!==null){ state.leads.splice(parseInt(idx),1); render(); updateStatus('Lead deleted'); } }
+    function handleDeleteVault(e){ let idx = e.currentTarget.getAttribute('data-idx'); if(idx!==null){ state.vault.splice(parseInt(idx),1); render(); updateStatus('Vault deleted'); } }
+    function addTaskHandler(){ let t = prompt('New task:'); if(t && t.trim()){ state.tasks.push(escapeHtml(t.trim())); render(); updateStatus('Task added'); } }
+    function addLeadHandler(){ let l = prompt('New lead:'); if(l && l.trim()){ state.leads.push(escapeHtml(l.trim())); render(); updateStatus('Lead added'); } }
+    function addVaultHandler(){ let v = prompt('New vault item:'); if(v && v.trim()){ state.vault.push(escapeHtml(v.trim())); render(); updateStatus('Vault added'); } }
+    
+    function setSection(section){
+      console.log('setSection called:', section);
       state.activeSection = section;
       render();
       updateStatus(`Section: ${section}`);
     }
-
-    // ---------- Public API (Operator controlled) ----------
+    
     window.NexusOS = {
-      init: function() {
-        console.log('NEXUS OS — Secure foundation live.');
+      init: function(){
+        console.log('NEXUS OS fixed - initializing');
         render();
-        // Navigation buttons
-        document.getElementById('navOverview')?.addEventListener('click', () => setSection('overview'));
-        document.getElementById('navTasks')?.addEventListener('click', () => setSection('tasks'));
-        document.getElementById('navLeads')?.addEventListener('click', () => setSection('leads'));
-        document.getElementById('navVault')?.addEventListener('click', () => setSection('vault'));
-        document.getElementById('navAI')?.addEventListener('click', () => setSection('ai'));
-        updateStatus('Ready for operator commands');
-      },
-      getState: () => ({ ...state })
+        const btnMap = {
+          navOverview: 'overview',
+          navTasks: 'tasks',
+          navLeads: 'leads',
+          navVault: 'vault',
+          navAI: 'ai'
+        };
+        for(let [id, sec] of Object.entries(btnMap)){
+          const btn = document.getElementById(id);
+          if(btn){
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              console.log('Button clicked:', id, '->', sec);
+              setSection(sec);
+            });
+          } else {
+            console.warn('Button not found:', id);
+          }
+        }
+        updateStatus('Ready. Click any button.');
+      }
     };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => window.NexusOS.init());
-    } else {
-      window.NexusOS.init();
-    }
+    
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ()=>window.NexusOS.init());
+    else window.NexusOS.init();
   })();
 </script>
 </body>
