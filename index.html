@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>NEXUS OS | Step 1</title>
+  <style>
+    /* ---------- NEXUS OS Core Styles ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    /* Utility: Hide elements */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Glassmorphism component (future use) */
+    .glass {
+      background: rgba(15, 25, 45, 0.65);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 1.5rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(2, 6, 23, 0.6);
+      border-radius: 2rem;
+      padding: 1.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #22d3ee;
+      margin-bottom: 0.5rem;
+    }
+
+    .status {
+      color: #94a3b8;
+      border-left: 3px solid #22d3ee;
+      padding-left: 1rem;
+      margin: 1rem 0;
+    }
+
+    button {
+      background: #0f3b3b;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #1e5a5a;
+      transform: scale(1.02);
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      text-align: center;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <div>
+      <h1>⚡ NEXUS OS</h1>
+      <p style="color: #94a3b8;">AI Operator Infrastructure — Step 1</p>
+    </div>
+    <div class="status" id="systemStatus">🟢 SYSTEM INITIALIZED</div>
+  </div>
+
+  <!-- Dynamic Workspace -->
+  <div id="workspace" class="card">
+    <p id="message">Loading infrastructure...</p>
+  </div>
+
+  <!-- Controls (for learning & testing) -->
+  <div style="margin-top: 1.5rem; display: flex; gap: 0.8rem; flex-wrap: wrap;">
+    <button id="btnOverview">📊 Overview</button>
+    <button id="btnTasks">✅ Tasks</button>
+    <button id="btnLeads">🎯 Leads</button>
+    <button id="btnVault">🧠 Vault</button>
+    <button id="btnAI">⚡ AI Actions</button>
+  </div>
+
+  <footer>
+    Security-first | Modular | Reusable | Skill-Building | Zero Dependency
+  </footer>
+</div>
+
+<script>
+  // ----------------------------------------------
+  // NEXUS OS CORE MODULE (Single file, secure, skill-focused)
+  // ----------------------------------------------
+  (function() {
+    "use strict";
+
+    // ---------- 1. SECURITY: Escape HTML to prevent XSS ----------
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    // ---------- 2. STATE (data) - Future persistent ----------
+    let state = {
+      activeSection: 'overview',
+      tasks: ['Initialize operator workflow', 'Build lead system'],
+      leads: ['First potential client'],
+      vault: ['AI workflow concepts']
+    };
+
+    // ---------- 3. DOM elements ----------
+    const workspaceDiv = document.getElementById('workspace');
+    const statusSpan = document.getElementById('systemStatus');
+
+    // ---------- 4. Render functions (reusable, low maintenance) ----------
+    function renderOverview() {
+      return `
+        <h3 style="font-size:1.4rem; margin-bottom:0.8rem;">🚀 Welcome to NEXUS OS</h3>
+        <p style="color:#cbd5e1;">Your modular AI operator infrastructure is active.<br>
+        ✅ Security-first design<br>
+        ✅ Skill-building by design<br>
+        ✅ Reusable components<br>
+        ✅ Future-proof architecture<br>
+        </p>
+        <p style="margin-top:1rem;">🔧 <strong>Current Mode:</strong> Zero → Operator</p>
+      `;
+    }
+
+    function renderTasks() {
+      let html = `<h3 style="font-size:1.4rem;">✅ Tasks (${state.tasks.length})</h3><ul style="margin-top:0.8rem; list-style:none;">`;
+      state.tasks.forEach((task, idx) => {
+        html += `<li style="background:#1e293b; margin:0.5rem 0; padding:0.6rem; border-radius:0.8rem; display:flex; justify-content:space-between;">
+                  <span>${escapeHtml(task)}</span>
+                  <button class="delete-task" data-idx="${idx}" style="background:#7f1a1a; padding:0.2rem 0.6rem;">✖</button>
+                </li>`;
+      });
+      html += `</ul><button id="addTaskBtn" style="margin-top:0.8rem;">+ Add Task</button>`;
+      return html;
+    }
+
+    function renderLeads() {
+      let html = `<h3 style="font-size:1.4rem;">🎯 Leads (${state.leads.length})</h3><ul style="margin-top:0.8rem; list-style:none;">`;
+      state.leads.forEach((lead, idx) => {
+        html += `<li style="background:#1e293b; margin:0.5rem 0; padding:0.6rem; border-radius:0.8rem; display:flex; justify-content:space-between;">
+                  <span>${escapeHtml(lead)}</span>
+                  <button class="delete-lead" data-idx="${idx}" style="background:#7f1a1a;">✖</button>
+                </li>`;
+      });
+      html += `</ul><button id="addLeadBtn">+ Add Lead</button>`;
+      return html;
+    }
+
+    function renderVault() {
+      let html = `<h3 style="font-size:1.4rem;">🧠 Vault (${state.vault.length})</h3><ul style="margin-top:0.8rem; list-style:none;">`;
+      state.vault.forEach((item, idx) => {
+        html += `<li style="background:#1e293b; margin:0.5rem 0; padding:0.6rem; border-radius:0.8rem; display:flex; justify-content:space-between;">
+                  <span>${escapeHtml(item)}</span>
+                  <button class="delete-vault" data-idx="${idx}" style="background:#7f1a1a;">✖</button>
+                </li>`;
+      });
+      html += `</ul><button id="addVaultBtn">+ Add Vault Item</button>`;
+      return html;
+    }
+
+    function renderAiActions() {
+      return `
+        <h3 style="font-size:1.4rem;">⚡ AI Actions</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:0.8rem; margin-top:1rem;">
+          <div class="glass" style="padding:0.8rem;">📄 Generate Proposal</div>
+          <div class="glass" style="padding:0.8rem;">🤖 AI Reply</div>
+          <div class="glass" style="padding:0.8rem;">💰 Pricing Engine</div>
+          <div class="glass" style="padding:0.8rem;">🔁 Workflow Suggest</div>
+        </div>
+      `;
+    }
+
+    // Main render dispatcher
+    function render() {
+      if (!workspaceDiv) return;
+      let content = '';
+      switch (state.activeSection) {
+        case 'overview': content = renderOverview(); break;
+        case 'tasks': content = renderTasks(); break;
+        case 'leads': content = renderLeads(); break;
+        case 'vault': content = renderVault(); break;
+        case 'ai': content = renderAiActions(); break;
+        default: content = renderOverview();
+      }
+      workspaceDiv.innerHTML = content;
+      // After rendering HTML, attach dynamic event listeners (for delete/add buttons)
+      attachDynamicEvents();
+    }
+
+    // Re-attach events after each render (ensures new buttons work)
+    function attachDynamicEvents() {
+      // Delete task
+      document.querySelectorAll('.delete-task').forEach(btn => {
+        btn.removeEventListener('click', deleteTaskHandler);
+        btn.addEventListener('click', deleteTaskHandler);
+      });
+      // Delete lead
+      document.querySelectorAll('.delete-lead').forEach(btn => {
+        btn.removeEventListener('click', deleteLeadHandler);
+        btn.addEventListener('click', deleteLeadHandler);
+      });
+      // Delete vault
+      document.querySelectorAll('.delete-vault').forEach(btn => {
+        btn.removeEventListener('click', deleteVaultHandler);
+        btn.addEventListener('click', deleteVaultHandler);
+      });
+      // Add task button
+      const addTaskBtn = document.getElementById('addTaskBtn');
+      if (addTaskBtn) {
+        addTaskBtn.removeEventListener('click', addTaskHandler);
+        addTaskBtn.addEventListener('click', addTaskHandler);
+      }
+      const addLeadBtn = document.getElementById('addLeadBtn');
+      if (addLeadBtn) {
+        addLeadBtn.removeEventListener('click', addLeadHandler);
+        addLeadBtn.addEventListener('click', addLeadHandler);
+      }
+      const addVaultBtn = document.getElementById('addVaultBtn');
+      if (addVaultBtn) {
+        addVaultBtn.removeEventListener('click', addVaultHandler);
+        addVaultBtn.addEventListener('click', addVaultHandler);
+      }
+    }
+
+    // Handlers (use security + skill)
+    function deleteTaskHandler(e) {
+      const idx = e.currentTarget.getAttribute('data-idx');
+      if (idx !== null) {
+        state.tasks.splice(parseInt(idx), 1);
+        render();
+        updateStatus('Task deleted');
+      }
+    }
+    function deleteLeadHandler(e) {
+      const idx = e.currentTarget.getAttribute('data-idx');
+      if (idx !== null) { state.leads.splice(parseInt(idx), 1); render(); updateStatus('Lead deleted'); }
+    }
+    function deleteVaultHandler(e) {
+      const idx = e.currentTarget.getAttribute('data-idx');
+      if (idx !== null) { state.vault.splice(parseInt(idx), 1); render(); updateStatus('Vault item deleted'); }
+    }
+    function addTaskHandler() {
+      let newTask = prompt('Enter new task:');
+      if (newTask && newTask.trim()) {
+        state.tasks.push(escapeHtml(newTask.trim()));
+        render();
+        updateStatus('Task added');
+      }
+    }
+    function addLeadHandler() {
+      let newLead = prompt('Enter new lead:');
+      if (newLead && newLead.trim()) {
+        state.leads.push(escapeHtml(newLead.trim()));
+        render();
+      }
+    }
+    function addVaultHandler() {
+      let newItem = prompt('Enter vault item:');
+      if (newItem && newItem.trim()) {
+        state.vault.push(escapeHtml(newItem.trim()));
+        render();
+      }
+    }
+
+    function updateStatus(msg) {
+      if (statusSpan) statusSpan.innerHTML = `🟢 ${msg}`;
+      setTimeout(() => { if(statusSpan) statusSpan.innerHTML = '🟢 SYSTEM INITIALIZED'; }, 1500);
+    }
+
+    // Section change
+    function setSection(section) {
+      state.activeSection = section;
+      render();
+      updateStatus(`Section: ${section}`);
+    }
+
+    // ---------- 5. Public API (Operator controlled) ----------
+    window.NexusOS = {
+      init: function() {
+        console.log('NEXUS OS Step 1 — Secure, modular foundation ready.');
+        render();
+        // attach static button listeners (navigation)
+        document.getElementById('btnOverview')?.addEventListener('click', () => setSection('overview'));
+        document.getElementById('btnTasks')?.addEventListener('click', () => setSection('tasks'));
+        document.getElementById('btnLeads')?.addEventListener('click', () => setSection('leads'));
+        document.getElementById('btnVault')?.addEventListener('click', () => setSection('vault'));
+        document.getElementById('btnAI')?.addEventListener('click', () => setSection('ai'));
+        updateStatus('System online');
+      },
+      // For future: expose state safely
+      getState: () => ({ ...state })
+    };
+
+    // Auto-start when DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => window.NexusOS.init());
+    } else {
+      window.NexusOS.init();
+    }
+  })();
+</script>
+</body>
+  </html>
