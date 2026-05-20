@@ -21,7 +21,9 @@
     <!-- Sidebar -->
     <aside class="w-full md:w-64 glass border-r border-white/10 p-4">
 
+      <!-- Logo -->
       <div class="mb-8">
+
         <h1 class="text-2xl font-bold text-cyan-400">
           NEXUS OS
         </h1>
@@ -29,28 +31,57 @@
         <p class="text-sm text-slate-400 mt-1">
           AI Operator Infrastructure
         </p>
+
       </div>
 
+      <!-- Navigation -->
       <nav class="space-y-2">
 
-        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+        <button
+          class="sidebar-btn w-full text-left p-3 rounded-xl"
+          onclick="app.showSection('overview')">
+
           📊 Overview
+
         </button>
 
-        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
-          🎯 Leads
-        </button>
+        <button
+          class="sidebar-btn w-full text-left p-3 rounded-xl"
+          onclick="app.showSection('tasks')">
 
-        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
-          ⚡ AI Actions
-        </button>
-
-        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
           ✅ Tasks
+
         </button>
 
-        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+        <button
+          class="sidebar-btn w-full text-left p-3 rounded-xl"
+          onclick="app.showSection('leads')">
+
+          🎯 Leads
+
+        </button>
+
+        <button
+          class="sidebar-btn w-full text-left p-3 rounded-xl"
+          onclick="app.showSection('vault')">
+
           🧠 Vault
+
+        </button>
+
+        <button
+          class="sidebar-btn w-full text-left p-3 rounded-xl"
+          onclick="app.showSection('ai')">
+
+          ⚡ AI Actions
+
+        </button>
+
+        <button
+          class="sidebar-btn w-full text-left p-3 rounded-xl">
+
+          ⚙️ Settings
+
         </button>
 
       </nav>
@@ -64,6 +95,7 @@
       <div class="glass rounded-2xl p-4 flex items-center justify-between mb-6">
 
         <div>
+
           <h2 class="text-xl font-semibold">
             Operator Dashboard
           </h2>
@@ -71,6 +103,7 @@
           <p class="text-sm text-slate-400">
             Control • Automate • Operate
           </p>
+
         </div>
 
         <div class="text-cyan-400 text-sm">
@@ -112,16 +145,10 @@
 
       </section>
 
-      <!-- Workspace -->
-      <section class="glass rounded-2xl p-6">
-
-        <h3 class="text-xl font-semibold mb-3">
-          Welcome to NEXUS OS 🚀
-        </h3>
-
-        <p class="text-slate-400 leading-relaxed">
-          Your AI Operator Infrastructure System is now initialized.
-        </p>
+      <!-- Dynamic Workspace -->
+      <section
+        id="workspace"
+        class="glass rounded-2xl p-6">
 
       </section>
 
