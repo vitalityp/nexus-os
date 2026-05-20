@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>NEXUS OS | Drag & Drop</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: linear-gradient(135deg,#0f172a,#020617); color:#e2e8f0; font-family: system-ui; padding:1rem; }
+    .container { max-width:1280px; margin:0 auto; background:#02061780; backdrop-filter:blur(4px); border-radius:2rem; padding:1.5rem; }
+    .hidden { display: none !important; }
+    .glass { background:#0f192d80; backdrop-filter:blur(8px); border:1px solid #0ff3; border-radius:1.5rem; }
+    h1 { font-size:2rem; color:#22d3ee; }
+    .status { color:#94a3b8; border-left:3px solid #22d3ee; padding-left:1rem; font-size:0.85rem; }
+    button, .btn { background:#0f3b3b; border:none; color:white; padding:0.6rem 1.2rem; border-radius:2rem; cursor:pointer; transition:0.2s; }
+    button:hover { background:#1e5a5a; transform:translateY(-1px); }
+    .nav-btn { background:transparent; border:1px solid #22d3ee30; width:100%; text-align:left; margin-bottom:0.5rem; }
+    .nav-btn:hover { background:#22d3ee20; border-color:#22d3ee; }
+    .card { background:#1e293b80; border-radius:1rem; padding:1.25rem; }
+    .drop-zone { border:2px dashed #22d3ee; border-radius:1rem; padding:2rem; text-align:center; margin:1rem 0; transition:0.2s; cursor:pointer; }
+    .drop-zone.drag-over { background:#22d3ee20; border-color:#22d3ee; }
+    .file-item { background:#1e293b; margin:0.5rem 0; padding:0.6rem 1rem; border-radius:0.8rem; display:flex; justify-content:space-between; align-items:center; }
+    footer { margin-top:2rem; font-size:0.7rem; text-align:center; color:#475569; }
+    @media (max-width:768px) { .container { padding:1rem; } h1 { font-size:1.6rem; } }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+    <div><h1>⚡ NEXUS OS</h1><p style="color:#94a3b8;">AI Operator Infrastructure — Drag & Drop</p></div>
+    <div class="status" id="systemStatus">🟢 READY</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:1.5rem;">
+    <!-- Navigation Buttons -->
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; background:#0f172a80; padding:0.8rem; border-radius:1.5rem;">
+      <button class="nav-btn" id="navOverview">📊 Overview</button>
+      <button class="nav-btn" id="navTasks">✅ Tasks</button>
+      <button class="nav-btn" id="navLeads">🎯 Leads</button>
+      <button class="nav-btn" id="navVault">🧠 Vault</button>
+      <button class="nav-btn" id="navFiles">📁 Files (Drag & Drop)</button>
+      <button class="nav-btn" id="navAI">⚡ AI Actions</button>
+    </div>
+
+    <!-- Dynamic Workspace -->
+    <div id="workspace" class="card">
+      <p>Loading operator infrastructure...</p>
+    </div>
+  </div>
+  <footer>Drag & Drop enabled • Security-first • Zero dependency</footer>
+</div>
+
+<script>
+  (function(){
+    "use strict";
+    function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g, function(m){ return m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'; }); }
+    
+    // State
+    let state = {
+      activeSection: 'overview',
+      tasks: ['Initialize operator workflow', 'Build lead system'],
+      leads: ['First potential client'],
+      vault: ['AI workflow concepts'],
+      files: []  // array of {name, size, type, dataURL? (for preview) - but for security we store only metadata}
+    };
+    
+    const workspace = document.getElementById('workspace');
+    const statusSpan = document.getElementById('systemStatus');
+    
+    function updateStatus(msg){ if(statusSpan) statusSpan.innerHTML = `🟢 ${msg}`; setTimeout(()=>{ if(statusSpan) statusSpan.innerHTML='🟢 SYSTEM ONLINE'; },1500); }
+    
+    // Renderers
+    function renderOverview(){
+      return `<h3 style="font-size:1.4rem;">🚀 Welcome to NEXUS OS</h3>
+              <p>Your operator infrastructure is active.<br>✅ Drag & Drop file management<br>✅ Security-first<br>✅ Modular<br>✅ Zero dependency</p>`;
+    }
+    function renderTasks(){
+      let html = `<h3 style="font-size:1.4rem;">✅ Tasks (${state.tasks.length})</h3>`;
+      if(state.tasks.length===0) html += `<p>No tasks yet.</p>`;
+      else { state.tasks.forEach((t,i)=>{ html += `<div class="file-item"><span>${escapeHtml(t)}</span><button class="delete-task" data-idx="${i}" style="background:#7f1a1a;">✖</button></div>`; }); }
+      html += `<button id="addTaskBtn" style="margin-top:0.8rem;">+ Add Task</button>`;
+      return html;
+    }
+    function renderLeads(){
+      let html = `<h3 style="font-size:1.4rem;">🎯 Leads (${state.leads.length})</h3>`;
+      if(state.leads.length===0) html += `<p>No leads yet.</p>`;
+      else { state.leads.forEach((l,i)=>{ html += `<div class="file-item"><span>${escapeHtml(l)}</span><button class="delete-lead" data-idx="${i}" style="background:#7f1a1a;">✖</button></div>`; }); }
+      html += `<button id="addLeadBtn">+ Add Lead</button>`;
+      return html;
+    }
+    function renderVault(){
+      let html = `<h3 style="font-size:1.4rem;">🧠 Vault (${state.vault.length})</h3>`;
+      if(state.vault.length===0) html += `<p>Vault empty.</p>`;
+      else { state.vault.forEach((v,i)=>{ html += `<div class="file-item"><span>${escapeHtml(v)}</span><button class="delete-vault" data-idx="${i}" style="background:#7f1a1a;">✖</button></div>`; }); }
+      html += `<button id="addVaultBtn">+ Add Vault Item</button>`;
+      return html;
+    }
+    function renderFiles(){
+      let html = `<h3 style="font-size:1.4rem;">📁 Drag & Drop Files (${state.files.length})</h3>
+                  <div id="dropZone" class="drop-zone" style="margin:1rem 0;">
+                    📂 Drag & Drop files here<br><small>or click to select</small>
+                  </div>
+                  <input type="file" id="fileInput" multiple style="display:none;" />
+                  <div id="fileList">`;
+      if(state.files.length===0){
+        html += `<p>No files uploaded yet.</p>`;
+      } else {
+        state.files.forEach((f,i)=>{
+          let sizeKB = (f.size/1024).toFixed(1);
+          html += `<div class="file-item">
+                    <span>📄 ${escapeHtml(f.name)} (${sizeKB} KB)</span>
+                    <button class="delete-file" data-idx="${i}" style="background:#7f1a1a;">✖</button>
+                  </div>`;
+        });
+      }
+      html += `</div>`;
+      return html;
+    }
+    function renderAiActions(){
+      return `<h3 style="font-size:1.4rem;">⚡ AI Actions</h3>
+              <div style="display:grid; gap:0.8rem; grid-template-columns:repeat(auto-fill,minmax(150px,1fr));">
+                <div class="glass" style="padding:0.8rem;">📄 Generate Proposal</div>
+                <div class="glass" style="padding:0.8rem;">🤖 AI Reply</div>
+                <div class="glass" style="padding:0.8rem;">💰 Pricing Engine</div>
+                <div class="glass" style="padding:0.8rem;">🔁 Workflow Suggest</div>
+              </div>`;
+    }
+    
+    // Handle file addition (store metadata only, no actual dataURL to avoid memory bloat)
+    function addFiles(fileList){
+      const newFiles = [];
+      for(let i=0; i<fileList.length; i++){
+        const f = fileList[i];
+        newFiles.push({
+          name: f.name,
+          size: f.size,
+          type: f.type,
+          lastModified: f.lastModified
+        });
+      }
+      state.files = [...state.files, ...newFiles];
+      render();
+      updateStatus(`${newFiles.length} file(s) added`);
+    }
+    
+    function deleteFile(idx){
+      state.files.splice(idx,1);
+      render();
+      updateStatus('File deleted');
+    }
+    
+    // Attach drag-drop after render
+    function attachDragDrop(){
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+      if(!dropZone) return;
+      
+      // Click to open file dialog
+      dropZone.addEventListener('click', ()=> fileInput.click());
+      fileInput.addEventListener('change', (e)=>{
+        if(e.target.files.length) addFiles(e.target.files);
+        fileInput.value = ''; // reset
+      });
+      
+      // Drag & drop events
+      dropZone.addEventListener('dragover', (e)=>{
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+      });
+      dropZone.addEventListener('dragleave', ()=>{
+        dropZone.classList.remove('drag-over');
+      });
+      dropZone.addEventListener('drop', (e)=>{
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        if(files.length) addFiles(files);
+      });
+    }
+    
+    function attachEvents(){
+      // Delete tasks, leads, vault
+      document.querySelectorAll('.delete-task').forEach(btn=>{
+        btn.removeEventListener('click', handleDeleteTask);
+        btn.addEventListener('click', handleDeleteTask);
+      });
+      document.querySelectorAll('.delete-lead').forEach(btn=>{
+        btn.removeEventListener('click', handleDeleteLead);
+        btn.addEventListener('click', handleDeleteLead);
+      });
+      document.querySelectorAll('.delete-vault').forEach(btn=>{
+        btn.removeEventListener('click', handleDeleteVault);
+        btn.addEventListener('click', handleDeleteVault);
+      });
+      document.querySelectorAll('.delete-file').forEach(btn=>{
+        btn.removeEventListener('click', handleDeleteFile);
+        btn.addEventListener('click', handleDeleteFile);
+      });
+      const addTask = document.getElementById('addTaskBtn');
+      if(addTask){ addTask.removeEventListener('click', addTaskHandler); addTask.addEventListener('click', addTaskHandler); }
+      const addLead = document.getElementById('addLeadBtn');
+      if(addLead){ addLead.removeEventListener('click', addLeadHandler); addLead.addEventListener('click', addLeadHandler); }
+      const addVault = document.getElementById('addVaultBtn');
+      if(addVault){ addVault.removeEventListener('click', addVaultHandler); addVault.addEventListener('click', addVaultHandler); }
+      
+      // Drag & drop only when files section active
+      if(state.activeSection === 'files'){
+        attachDragDrop();
+      }
+    }
+    
+    function handleDeleteTask(e){ let idx = e.currentTarget.getAttribute('data-idx'); if(idx!==null){ state.tasks.splice(parseInt(idx),1); render(); updateStatus('Task deleted'); } }
+    function handleDeleteLead(e){ let idx = e.currentTarget.getAttribute('data-idx'); if(idx!==null){ state.leads.splice(parseInt(idx),1); render(); updateStatus('Lead deleted'); } }
+    function handleDeleteVault(e){ let idx = e.currentTarget.getAttribute('data-idx'); if(idx!==null){ state.vault.splice(parseInt(idx),1); render(); updateStatus('Vault deleted'); } }
+    function handleDeleteFile(e){ let idx = e.currentTarget.getAttribute('data-idx'); if(idx!==null){ deleteFile(parseInt(idx)); } }
+    function addTaskHandler(){ let t = prompt('New task:'); if(t && t.trim()){ state.tasks.push(escapeHtml(t.trim())); render(); updateStatus('Task added'); } }
+    function addLeadHandler(){ let l = prompt('New lead:'); if(l && l.trim()){ state.leads.push(escapeHtml(l.trim())); render(); updateStatus('Lead added'); } }
+    function addVaultHandler(){ let v = prompt('New vault item:'); if(v && v.trim()){ state.vault.push(escapeHtml(v.trim())); render(); updateStatus('Vault added'); } }
+    
+    function render(){
+      if(!workspace) return;
+      let content = '';
+      switch(state.activeSection){
+        case 'overview': content = renderOverview(); break;
+        case 'tasks': content = renderTasks(); break;
+        case 'leads': content = renderLeads(); break;
+        case 'vault': content = renderVault(); break;
+        case 'files': content = renderFiles(); break;
+        case 'ai': content = renderAiActions(); break;
+        default: content = renderOverview();
+      }
+      workspace.innerHTML = content;
+      attachEvents();
+    }
+    
+    function setSection(section){
+      console.log('setSection:', section);
+      state.activeSection = section;
+      render();
+      updateStatus(`Section: ${section}`);
+    }
+    
+    window.NexusOS = {
+      init: function(){
+        console.log('NEXUS OS with Drag & Drop - initializing');
+        render();
+        const btnMap = {
+          navOverview: 'overview',
+          navTasks: 'tasks',
+          navLeads: 'leads',
+          navVault: 'vault',
+          navFiles: 'files',
+          navAI: 'ai'
+        };
+        for(let [id, sec] of Object.entries(btnMap)){
+          const btn = document.getElementById(id);
+          if(btn){
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              console.log('Button clicked:', id, '->', sec);
+              setSection(sec);
+            });
+          }
+        }
+        updateStatus('Ready. Drag & drop files into Files section.');
+      }
+    };
+    
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ()=>window.NexusOS.init());
+    else window.NexusOS.init();
+  })();
+</script>
+</body>
+</html>
