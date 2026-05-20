@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>NEXUS OS</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- SEO -->
+  <meta name="description" content="NEXUS OS - AI Operator Infrastructure System" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <style>
+    body {
+      background: #020617;
+      color: #f8fafc;
+      font-family: system-ui, sans-serif;
+    }
+
+    .glass {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sidebar-btn {
+      transition: 0.2s ease;
+    }
+
+    .sidebar-btn:hover {
+      background: rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+
+  <!-- Main Layout -->
+  <div class="flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 glass border-r border-white/10 p-4">
+
+      <div class="mb-8">
+        <h1 class="text-2xl font-bold text-cyan-400">
+          NEXUS OS
+        </h1>
+
+        <p class="text-sm text-slate-400 mt-1">
+          AI Operator Infrastructure
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="space-y-2">
+
+        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+          📊 Overview
+        </button>
+
+        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+          🎯 Leads
+        </button>
+
+        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+          ⚡ AI Actions
+        </button>
+
+        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+          ✅ Tasks
+        </button>
+
+        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+          🧠 Vault
+        </button>
+
+        <button class="sidebar-btn w-full text-left p-3 rounded-xl">
+          ⚙️ Settings
+        </button>
+
+      </nav>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-5">
+
+      <!-- Top Bar -->
+      <div class="glass rounded-2xl p-4 flex items-center justify-between mb-6">
+
+        <div>
+          <h2 class="text-xl font-semibold">
+            Operator Dashboard
+          </h2>
+
+          <p class="text-sm text-slate-400">
+            Control • Automate • Operate
+          </p>
+        </div>
+
+        <div class="text-sm text-cyan-400">
+          SYSTEM ONLINE
+        </div>
+
+      </div>
+
+      <!-- Quick Actions -->
+      <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+
+        <div class="glass rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Quick Action</p>
+          <h3 class="text-lg font-bold mt-2">
+            Generate Proposal
+          </h3>
+        </div>
+
+        <div class="glass rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Quick Action</p>
+          <h3 class="text-lg font-bold mt-2">
+            Add Lead
+          </h3>
+        </div>
+
+        <div class="glass rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Quick Action</p>
+          <h3 class="text-lg font-bold mt-2">
+            New Task
+          </h3>
+        </div>
+
+        <div class="glass rounded-2xl p-4">
+          <p class="text-sm text-slate-400">Quick Action</p>
+          <h3 class="text-lg font-bold mt-2">
+            AI Reply
+          </h3>
+        </div>
+
+      </section>
+
+      <!-- Workspace -->
+      <section class="glass rounded-2xl p-6">
+
+        <h3 class="text-xl font-semibold mb-3">
+          Welcome to NEXUS OS 🚀
+        </h3>
+
+        <p class="text-slate-400 leading-relaxed">
+          Your AI Operator Infrastructure System is now initialized.
+          This dashboard will evolve into a modular operational environment
+          for workflows, automation, lead intelligence, and AI-assisted execution.
+        </p>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
